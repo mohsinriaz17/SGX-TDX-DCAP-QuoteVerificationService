@@ -1,5 +1,20 @@
 # Intel® Software Guard Extensions and Intel® Trust Domain Extensions Data Center Attestation Primitives (Intel® SGX and Intel® TDX DCAP) Quote Verification Service
 
+clone https://github.com/mohsinriaz17/SGX-TDX-DCAP-QuoteVerificationLibrary.git into this repo 
+./build.sh 
+./SGX-TDX-DCAP-QuoteVerificationLibrary/Src 
+./runAll.sh
+
+sudo apt install certbot 
+sudo certbot certonly --standalone -d qvs.ternoa.dev 
+ls /etc/letsencrypt/live/ 
+ls /etc/letsencrypt/live/qvs.ternoa.dev 
+cd ~/SGX-TDX-DCAP-QuoteVerificationService/samples/simple-signing-service 
+./prepareCerts.sh #note: if you change domain, change cp path in preparecerts
+
+./build.sh 
+./runSSS.sh
+
 ## Introduction
 
 Quote Verification Service is a stateless server endpoint implementation that verifies attestation evidence (quote) of ISV (Independent Software Vendor) enclaves.
