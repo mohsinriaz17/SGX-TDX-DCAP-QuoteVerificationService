@@ -303,12 +303,13 @@ async function verifyAttestationEvidence(ctx) {
             root_cert: Buffer.from(rootCaPem).toString('base64'),  // Intel's Root CA
 
             tcb_info_issuer_chain:Buffer.from(tcbInfoSigningChain).toString('base64'),
-            tcb_info: Buffer.from(JSON.stringify(tcbInfoString)).toString('base64'),
+            tcb_info: Buffer.from(JSON.stringify(tcbInfo.tcbInfo)).toString('base64'),
+            tcb_info_signature:Buffer.from(JSON.stringify(tcbInfo.signature)).toString('base64'),
             qe_identity_issuer_chain:Buffer.from(tcbInfoSigningChain).toString('base64'),
-            qe_identity:Buffer.from(qeIdentityString).toString('base64'),
-
-            pck_crl: Buffer.from(requiredCollateral.pckCertCrl.body).toString('base64'),
-            root_crl: Buffer.from(requiredCollateral.rootCrl.body).toString('base64'),
+            qe_identity:Buffer.from(JSON.stringify(qeIdentity.enclaveIdentity)).toString('base64'),
+            qe_identity_signature:Buffer.from(JSON.stringify(qeIdentity.signature)).toString('base64'),
+            // pck_crl: Buffer.from(requiredCollateral.pckCertCrl.body).toString('base64'),
+            // root_crl: Buffer.from(requiredCollateral.rootCrl.body).toString('base64'),
             
         }
     };
