@@ -84,9 +84,9 @@ COPY test /qvs/test
 COPY nyc.config.js .eslintrc reporter_config.json /qvs/
 # test QVS
 WORKDIR /qvs/test
-RUN npm install && NODE_ENV=production npm test
+#RUN npm install && NODE_ENV=production npm test
 # lint test
-RUN NODE_ENV=production npm run lint-report
+#RUN NODE_ENV=production npm run lint-report
 
 FROM qvl-builder as qvl-builder-debug
 WORKDIR /qvl

@@ -293,7 +293,18 @@ async function verifyAttestationEvidence(ctx) {
             }
          */
         ctx.status = 200;
-        ctx.body = report;
+        ctx.body = {
+    attestation_report:report,
+    signature: ctx.response.get('X-IASReport-Signature'),
+    signing_certificate: ctx.response.get('X-IASReport-Signing-Certificate'),
+    collateral: {
+        pck_certificate: Buffer.from(pckCertPem).toString('base64'),
+        tcb_info: Buffer.from(JSON.stringify(tcbInfo)).toString('base64'),
+        pck_crl: Buffer.from(requiredCollateral.pckCertCrl.body).toString('base64'),
+        root_crl: Buffer.from(requiredCollateral.rootCrl.body).toString('base64'),
+        root_ca_certificate: Buffer.from(rootCaPem).toString('base64')  // Intel's Root CA
+    }
+    };
     }
     catch (error) {
         /*

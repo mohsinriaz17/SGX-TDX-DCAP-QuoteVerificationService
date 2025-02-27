@@ -46,8 +46,18 @@ function ExportSSSCertificate() {
 # Prepare SSS certs
 mkdir -p certificates
 pushd certificates || fail "Failed to access SSS certificates dir" 4
+
+# Generate self-signed cert for MTLS (still needed for service-to-service communication)
 prepareSelfSignedCert "sss-mtls-" '/C=US/O=Example/CN=localhost'
-prepareSelfSignedCert "sign-" '/C=US/CN=Sample signing key/O=Example'
+
+# Copy Let's Encrypt certificates instead of generating self-signed ones
+# Replace /path/to/your/certs with the actual path to your Let's Encrypt certificates
+cp /etc/letsencrypt/live/qvs.ternoa.dev/privkey.pem ./sign-key.pem
+cp /etc/letsencrypt/live/qvs.ternoa.dev/fullchain.pem ./sign-cert.pem
+
+# Make sure permissions are correct
+chmod 644 ./sign-cert.pem
+chmod 644 ./sign-key.pem
 
 #Exchange SSS and QVS MTLS certs
 ImportQVSCertificate

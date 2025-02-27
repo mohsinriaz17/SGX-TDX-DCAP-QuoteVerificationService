@@ -105,7 +105,8 @@ router.post('/sign/attestation-verification-report', (ctx) => {
     */
     const rawBodyToSign = ctx.request.body[unparsed];
     console.log('[Request]' + rawBodyToSign);
-
+const hash = crypto.createHash('sha384').update(rawBodyToSign).digest('hex');
+console.log('[SHA-384 Hash]', hash);
     const signer = crypto.createSign(algorithm);
     signer.update(rawBodyToSign);
     signer.end();
