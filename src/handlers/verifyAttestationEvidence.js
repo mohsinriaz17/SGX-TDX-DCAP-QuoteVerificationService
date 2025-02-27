@@ -294,16 +294,23 @@ async function verifyAttestationEvidence(ctx) {
          */
         ctx.status = 200;
         ctx.body = {
-    attestation_report:report,
-    signature: ctx.response.get('X-IASReport-Signature'),
-    signing_certificate: ctx.response.get('X-IASReport-Signing-Certificate'),
-    collateral: {
-        pck_certificate: Buffer.from(pckCertPem).toString('base64'),
-        tcb_info: Buffer.from(JSON.stringify(tcbInfo)).toString('base64'),
-        pck_crl: Buffer.from(requiredCollateral.pckCertCrl.body).toString('base64'),
-        root_crl: Buffer.from(requiredCollateral.rootCrl.body).toString('base64'),
-        root_ca_certificate: Buffer.from(rootCaPem).toString('base64')  // Intel's Root CA
-    }
+        attestation_report:report,
+        signature: ctx.response.get('X-IASReport-Signature'),
+        signing_certificate: ctx.response.get('X-IASReport-Signing-Certificate'),
+        collateral: {
+            pck_cert: Buffer.from(pckCertPem).toString('base64'),
+            intermediate_cert: Buffer.from(intermediateCaPem).toString('base64'),
+            root_cert: Buffer.from(rootCaPem).toString('base64'),  // Intel's Root CA
+
+            tcb_info_issuer_chain:Buffer.from(tcbInfoSigningChain).toString('base64'),
+            tcb_info: Buffer.from(JSON.stringify(tcbInfoString)).toString('base64'),
+            qe_identity_issuer_chain:Buffer.from(tcbInfoSigningChain).toString('base64'),
+            qe_identity:Buffer.from(qeIdentityString).toString('base64'),
+
+            pck_crl: Buffer.from(requiredCollateral.pckCertCrl.body).toString('base64'),
+            root_crl: Buffer.from(requiredCollateral.rootCrl.body).toString('base64'),
+            
+        }
     };
     }
     catch (error) {
