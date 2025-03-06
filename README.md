@@ -1,8 +1,7 @@
 # Intel® Software Guard Extensions and Intel® Trust Domain Extensions Data Center Attestation Primitives (Intel® SGX and Intel® TDX DCAP) Quote Verification Service
 
 clone https://github.com/mohsinriaz17/SGX-TDX-DCAP-QuoteVerificationLibrary.git into this repo 
-./build.sh 
-./SGX-TDX-DCAP-QuoteVerificationLibrary/Src 
+./build.sh ./SGX-TDX-DCAP-QuoteVerificationLibrary/Src 
 ./runAll.sh
 
 sudo apt install certbot 
